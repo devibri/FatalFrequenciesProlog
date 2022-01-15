@@ -33,6 +33,7 @@ function get_callback(funcWhenDone)
 
 function display_scene_list() {
 	var get_all_bindings = function(answers) {
+
 		for (var i = 0; i < answers.length; i++) {
     		var name = answers[i];
     		print_scene_names(name);
@@ -44,14 +45,6 @@ function display_scene_list() {
 }
 
 function print_scene_names(name) {
-	var scene_name = name.lookup("Name").toString(); 
-	//exchangeName = exchange.toString(); // Turn the Term into a string.
-	//console.log(exchangeName); // Print out the name of the exchange. 
+	var scene_name = name.lookup("Name");  
 	output_area.innerHTML = output_area.innerHTML + "<p>" + scene_name + "</p>";
-
-
-	// console.log(answers.length);
-	
-	
-	//
 }
