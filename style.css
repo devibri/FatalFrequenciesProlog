@@ -1,0 +1,194 @@
+* {
+  box-sizing: border-box;
+}
+
+
+/* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left {
+  width: 85%;
+}
+
+.right {
+  width: 15%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row:header {
+  margin: 20px;
+}
+
+.row {
+  padding: 5px;
+  padding-left: 30px;
+   padding-right: 30px;
+}
+
+.header {
+    background-color: #F4EED7;
+}
+
+.key {
+  margin: 15px;
+}
+.output-row {
+  padding: 10px;
+  margin: 20px;
+  background-color: #d9d9d9ff;
+}
+
+body {
+  background-color: #f3f3f3ff;
+  font-family: Arial;
+}
+
+.button {
+  background-color: #999999ff; 
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+}
+
+
+.row input[type=text] {
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  font-family: 'Noto Sans', sans-serif;
+  background-color:#EEECE2;
+}
+/*
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Noto Sans', sans-serif;
+}*/
+
+.search {
+  margin-top: 0px;
+  margin-left: 20px;
+}
+
+.search input[type=text] {
+   width: 30%;
+   margin-top:0px;
+   margin-left:20px;
+  background-color:##EEECE2;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.form input[type=text] {
+  width: 90%;
+}
+
+table {
+  border-collapse: collapse; 
+  border-spacing: 0px;
+  width: 100%;
+  table-layout: auto;
+}
+
+td, th {
+  border: 1px solid #F4EED7;
+
+}
+
+table td {
+  word-wrap: break-word;
+}
+
+tr:nth-child(even) {
+  background-color: #EEECE2;
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+  z-index: 8;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  background-color: white;
+  padding: 6px;
+}
+
+.form-popup input {
+  margin: 3px;
+}
+
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
