@@ -66,7 +66,7 @@ function display_scene_name() {
 
 // Displays a list of all of the clues in the current scene 
 function display_scene_info() {
-	var scene_tag = "sadies_sob_story";
+	scene_tag = "sadies_sob_story";
 	var get_all_bindings = function(answers) {
 		console.log(answers);
 		for (var i = 0; i < answers.length; i++) {
@@ -121,6 +121,39 @@ $(document).on("click", "input[name='clue']", function () {
 	reload();
 });
 
+// removes all the current scene info from webpage so it can be redisplayed
 function clear_scene_info() {
 	scene_output_area.innerHTML = "";
+}
+
+// handles clicking link to show all clues
+var el = document.getElementById('clues_link');
+el.onclick = display_all_clues;
+
+// handles clicking link to show all clues
+var el2 = document.getElementById('scenes_link');
+el2.onclick = display_scene_page;
+
+
+function display_all_clues() {
+	clear_scene_info(); 
+
+	var get_all_bindings = function(answers) {
+		console.log(answers);
+		for (var i = 0; i < answers.length; i++) {
+    		var clue = answers[i];
+    		print_scene_info(clue);
+		}
+	}
+	
+	session.query("clue(Name, Clue, Known).");
+	session.answers(get_callback(get_all_bindings));
+
+  console.log("clicked link");
+  return false;
+}
+
+function display_scene_page() {
+	reload();
+	return false;
 }
