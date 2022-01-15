@@ -6,7 +6,7 @@ session.consult("database.prolog");
 // Array of variable bindings, one per answer, returned by prolog query
 var bindings = [];
 
-display_scene_list(); 
+display_clue_list(); 
 
 /*
  * Returns a callback function to pass to session.answers(). 
@@ -31,7 +31,7 @@ function get_callback(funcWhenDone)
 	return callbackFunc;
 } 
 
-function display_scene_list() {
+function display_clue_list() {
 	var get_all_bindings = function(answers) {
 		for (var i = 0; i < answers.length; i++) {
     		var clue = answers[i];
@@ -45,5 +45,12 @@ function display_scene_list() {
 
 function print_clues(clue) {
 	var clue_desc = clue.lookup("Clue");  
-	output_area.innerHTML = output_area.innerHTML + "<p>" + clue_desc + "</p>";
+	var clue_known = clue.lookup("Known").toString();
+	var checkbox;
+	if (clue_known == "true") {
+		checkbox = "<input type='checkbox' checked>";
+	} else {
+		checkbox = "<input type='checkbox'>";
+	}
+	output_area.innerHTML = output_area.innerHTML + "<p>" + checkbox + clue_desc + "</p>";
 }

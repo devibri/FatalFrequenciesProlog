@@ -48,7 +48,6 @@ function display_scene_list() {
 function display_scene_name() {
 	var scene_tag = "sadies_sob_story";
 	var binding = function(answer) {
-		console.log(answer);
     	scene_output_area.innerHTML = scene_output_area.innerHTML + "<h2>" + answer.lookup("Name");  + "</h2>";
 	}
 	
