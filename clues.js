@@ -39,7 +39,7 @@ function display_scene_list() {
 		}
 	}
 	
-	session.query("clue(Scene, Clue).");
+	session.query("clue(Scene, Clue, Known).");
 	session.answers(get_callback(get_all_bindings));
 }
 
