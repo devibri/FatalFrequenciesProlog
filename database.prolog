@@ -12,5 +12,5 @@ scene_name(fullers_electrical_repair, "Fuller's Electrical Repair").
 
 :- dynamic(clue/2).
 clue(sadies_sob_story, "She met George at the New York Public Library. She loves George because she found him entirely different from your ordinary Joe. He read books about the human brain and the spirit world and all kinds of things. He thought a lot. George would have gone to college, only his family couldn’t afford it.").
-clue(sadies_sob_story, ("Core, Fuller’s Electrical Repair) George works as an electrical repairman at Fuller's Electrical Repair, just a couple blocks north of Fulton Street in downtown Brooklyn.").
+clue(sadies_sob_story, "[Core, Fuller’s Electrical Repair] George works as an electrical repairman at Fuller's Electrical Repair, just a couple blocks north of Fulton Street in downtown Brooklyn.").
 clue(fullers_electrical_repair, "She always thought George different from the other boys. Bit of a dreamer. Sometimes used to just stare off into space. Why, one time she thought she saw him squinting as though he were trying to see something just out of view.").
