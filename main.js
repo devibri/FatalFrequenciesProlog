@@ -72,7 +72,10 @@ function display_scene_info() {
 	scene_tag = "sadies_sob_story";
 	var get_all_bindings = function(answers) {
 		console.log(answers);
+		answers.sort(); 
+		console.log(answers);
 		for (var i = 0; i < answers.length; i++) {
+
     		var clue = answers[i];
     		print_scene_info(clue);
 		}
@@ -148,6 +151,8 @@ function display_all_clues() {
 	clear_scene_info(); 
 
 	var get_all_bindings = function(answers) {
+		console.log(answers);
+		answers.sort(); 
 		console.log(answers);
 		for (var i = 0; i < answers.length; i++) {
     		var clue = answers[i];
