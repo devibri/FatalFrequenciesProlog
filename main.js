@@ -81,7 +81,7 @@ function display_scene_info() {
 		}
 	}
 	
-	session.query("clue(" + scene_tag + ", Clue, Known).");
+	session.query("clue(Number, " + scene_tag + ", Clue, Known).");
 	session.answers(get_callback(get_all_bindings));
 }
 
@@ -95,33 +95,37 @@ function print_scene_names(name) {
 function print_scene_info(clue) {
 	var clue_name = clue.lookup("Clue").toString(); 
 	var clue_known = clue.lookup("Known").toString();
+	var clue_number = clue.lookup("Number").toString();
 	var checkbox;
 	if (clue_known == "true") {
 		checkbox = "<input type='checkbox' name='clue' checked>";
 	} else {
 		checkbox = "<input type='checkbox' name='clue'>";
 	}
-	scene_output_area.innerHTML = scene_output_area.innerHTML + "<p>" + checkbox + clue_name.replace(/^["'](.+(?=["']$))["']$/, '$1') + "</p>";
+	scene_output_area.innerHTML = scene_output_area.innerHTML + "<p>" + checkbox + clue_number + ") " + clue_name.replace(/^["'](.+(?=["']$))["']$/, '$1') + "</p>";
 }
 
 
 // When you click the checkbox for a clue, have this update the result in the database
 $(document).on("click", "input[name='clue']", function () {
 	var checked = $(this).prop('checked');
-	var clueText = this.nextSibling.data.trim();
+	var clueText = this.nextSibling.data.trim().substring(3);
+	var clueNumber = this.nextSibling.data.trim().substring(0, 1);
+	console.log(clueText); 
+	console.log(clueNumber);
 	
 	var remove_from_world = function(binding) {
 	}
 
-	var statement = "retract(clue(Name, \"" + clueText + "\", Known)).";
-	console.log(statement);
+	var statement = "retract(clue(Number, Name, \"" + clueText + "\", Known)).";
+	console.log(clueText);
 	session.query(statement);
 	session.answer(remove_from_world);
 	
 	var add_to_world = function(binding) {
 	}
 
-	session.query("asserta(clue( " + scene_tag + ", \"" + clueText + "\", " + checked + ")).");
+	session.query("asserta(clue(" + clueNumber + ", " + scene_tag + ", \"" + clueText + "\", " + checked + ")).");
 	session.answer(add_to_world);
 
 	if (page == "scenes") {
@@ -160,7 +164,7 @@ function display_all_clues() {
 		}
 	}
 	
-	session.query("clue(Name, Clue, Known).");
+	session.query("clue(Number, Name, Clue, Known).");
 	session.answers(get_callback(get_all_bindings));
 
   console.log("clicked link");
