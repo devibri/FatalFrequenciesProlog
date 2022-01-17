@@ -5,12 +5,15 @@ session.consult("database.prolog");
 // Array of variable bindings, one per answer, returned by prolog query
 
 var scene_tag; 
+var page = "scenes";
+
 //display_scene_list(); 
 clear_scene_info();
 display_scene_name();
 display_scene_info(); 
 
 function reload() {
+	page = "scenes";
 	clear_scene_info();
 	display_scene_name();
 	display_scene_info(); 
@@ -118,7 +121,12 @@ $(document).on("click", "input[name='clue']", function () {
 	session.query("asserta(clue( " + scene_tag + ", \"" + clueText + "\", " + checked + ")).");
 	session.answer(add_to_world);
 
-	reload();
+	if (page == "scenes") {
+		reload();
+	} else if (page == "clues") {
+		display_all_clues();
+	}
+	
 });
 
 // removes all the current scene info from webpage so it can be redisplayed
@@ -134,8 +142,9 @@ el.onclick = display_all_clues;
 var el2 = document.getElementById('scenes_link');
 el2.onclick = display_scene_page;
 
-
+// displays the list of all of the clues 
 function display_all_clues() {
+	page = "clues";
 	clear_scene_info(); 
 
 	var get_all_bindings = function(answers) {
@@ -153,6 +162,7 @@ function display_all_clues() {
   return false;
 }
 
+// displays the page with the scene info on it 
 function display_scene_page() {
 	reload();
 	return false;
