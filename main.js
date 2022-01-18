@@ -253,3 +253,18 @@ function display_scene_sadies_sob_story() {
 	scene_output_area.innerHTML = scene_output_area.innerHTML + "<p>In response to specific questions, Sadie responds with the following information:</p>";
 	display_scene_info_by_index(5, 7);
 } 
+
+/*
+// Takes a list of all of the scene names in the game and outputs them
+function display_scene_list() {
+	var get_all_bindings = function(answers) {
+		console.log(answers);
+		for (var i = 0; i < answers.length; i++) {
+    		var name = answers[i];
+    		print_scene_names(name);
+		}
+	}
+	
+	session.query("scene_name(Number, Scene, Name).");
+	session.answers(get_callback(get_all_bindings));
+}*/
