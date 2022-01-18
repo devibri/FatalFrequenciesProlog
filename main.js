@@ -84,8 +84,7 @@ function display_scene_info() {
 // Displays a list of all of the clues in the current scene 
 function display_scene_info_by_index(start, end) {
 	var binding = function(answer) {
-		console.log(i);
-    	print_scene_info(answer, i);
+    	print_scene_info_index(answer, i);
 	}
 
 	for (var i = start; i <= end; i++) {
@@ -97,11 +96,12 @@ function display_scene_info_by_index(start, end) {
 // Outputs the name of a scene
 function print_scene_names(name) {
 	var scene_name = name.lookup("Name");  
-	output_area.innerHTML = output_area.innerHTML + "<p>" + scene_name + "</p>";
+	output_area.innerHTML = output_area.innerHTML + "<p>" + scene_name.replace(/^["'](.+(?=["']$))["']$/, '$1') + "</p>";
 }
 
 // Outputs the clue of a scene
 function print_scene_info(clue) {
+	console.log(clue);
 	var clue_name = clue.lookup("Clue").toString(); 
 	var clue_known = clue.lookup("Known").toString();
 	var clue_number = clue.lookup("Number").toString();
@@ -116,7 +116,9 @@ function print_scene_info(clue) {
 
 
 // Outputs the clue of a scene for which the index of the clue is specified
-function print_scene_info(clue, index) {
+function print_scene_info_index(clue, index) {
+	console.log("clue with index");
+	console.log(clue);
 	var clue_name = clue.lookup("Clue").toString(); 
 	var clue_known = clue.lookup("Known").toString();
 	var checkbox;
