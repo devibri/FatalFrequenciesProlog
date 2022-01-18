@@ -5,6 +5,7 @@ session.consult("database.prolog");
 // Array of variable bindings, one per answer, returned by prolog query
 
 var scene_tag; 
+var temp_tag;
 var page = "scenes";
 
 //display_scene_list(); 
@@ -43,19 +44,20 @@ function get_callback(funcWhenDone)
 	}
 	return callbackFunc;
 } 
-
+/*
 // Takes a list of all of the scene names in the game and outputs them
 function display_scene_list() {
 	var get_all_bindings = function(answers) {
+		console.log(answers);
 		for (var i = 0; i < answers.length; i++) {
     		var name = answers[i];
     		print_scene_names(name);
 		}
 	}
 	
-	session.query("scene_name(Scene, Name).");
+	session.query("scene_name(Number, Scene, Name).");
 	session.answers(get_callback(get_all_bindings));
-}
+}*/
 
 // Displays the name of the current scene
 function display_scene_name() {
@@ -63,7 +65,17 @@ function display_scene_name() {
     	scene_output_area.innerHTML = scene_output_area.innerHTML + "<h2>" + answer.lookup("Name");  + "</h2>";
 	}
 	
-	session.query("scene_name(" + scene_tag + ", Name).");
+	session.query("scene_name(Number," + scene_tag + ", Name).");
+	session.answer(binding);
+}
+
+// Displays the name of scene from list of scenes
+function display_scene_name_by_tag() {
+	var binding = function(answer) {
+    	scene_output_area.innerHTML = scene_output_area.innerHTML + "<h2>" + answer.lookup("Name");  + "</h2>";
+	}
+	
+	session.query("scene_name(Number," + temp_tag + ", Name).");
 	session.answer(binding);
 }
 
@@ -81,6 +93,22 @@ function display_scene_info() {
 	session.answers(get_callback(get_all_bindings));
 }
 
+
+// Displays a list of all of the clues in the current scene 
+function display_scene_info_by_tag(tag) {
+	var s_tag = tag.lookup("Scene"); 
+	var get_all_bindings = function(answers) {
+		answers.sort(); 
+		for (var i = 0; i < answers.length; i++) {
+    		var clue = answers[i];
+    		print_scene_info(clue);
+		}
+	}
+	
+	session.query("clue(Number, " + s_tag + ", Clue, Known).");
+	session.answers(get_callback(get_all_bindings));
+}
+
 // Displays a list of all of the clues in the current scene 
 function display_scene_info_by_index(start, end) {
 	var binding = function(answer) {
@@ -93,15 +121,26 @@ function display_scene_info_by_index(start, end) {
 	}
 }
 
+// Displays a list of all of the clues in the current scene 
+function display_scene_info_by_index_and_tag(start, end) {
+	var binding = function(answer) {
+    	print_scene_info_index(answer, i);
+	}
+
+	for (var i = start; i <= end; i++) {
+		session.query("clue(" + i + ", " + temp_tag + ", Clue, Known).");
+		session.answer(binding);
+	}
+}
+
 // Outputs the name of a scene
 function print_scene_names(name) {
 	var scene_name = name.lookup("Name");  
-	output_area.innerHTML = output_area.innerHTML + "<p>" + scene_name.replace(/^["'](.+(?=["']$))["']$/, '$1') + "</p>";
+	output_area.innerHTML = output_area.innerHTML + "<p>" + scene_name + "</p>";
 }
 
 // Outputs the clue of a scene
 function print_scene_info(clue) {
-	console.log(clue);
 	var clue_name = clue.lookup("Clue").toString(); 
 	var clue_known = clue.lookup("Known").toString();
 	var clue_number = clue.lookup("Number").toString();
@@ -117,8 +156,6 @@ function print_scene_info(clue) {
 
 // Outputs the clue of a scene for which the index of the clue is specified
 function print_scene_info_index(clue, index) {
-	console.log("clue with index");
-	console.log(clue);
 	var clue_name = clue.lookup("Clue").toString(); 
 	var clue_known = clue.lookup("Known").toString();
 	var checkbox;
@@ -175,15 +212,19 @@ function display_all_clues() {
 	page = "clues";
 	clear_scene_info(); 
 
-	var get_all_bindings = function(answers) {
-		answers.sort(); 
+	//for (var i = 0; i < 2; i++) { //change this depending on the number of scenes in the game 
+		var get_all_bindings = function(answers) {
+		answers.sort();
+		console.log(answers);
 		for (var i = 0; i < answers.length; i++) {
-    		var clue = answers[i];
-    		print_scene_info(clue);
+    		var name = answers[i];
+   			//print_scene_names(name);
+   			//display_scene_info_by_index(1, 4, name);
+   			display_scene_clues(name);
 		}
 	}
 	
-	session.query("clue(Number, Name, Clue, Known).");
+	session.query("scene_name(Number, Scene, Name).");
 	session.answers(get_callback(get_all_bindings));
 	return false;
 }
@@ -204,7 +245,17 @@ function display_scene(tag) {
 	if (tag == "sadies_sob_story") {
 		display_scene_sadies_sob_story();
 	}
-	
+}
+
+// Displays the clues for a given scene
+function display_scene_clues(tag) {
+	temp_tag = tag.lookup("Scene");
+	display_scene_name_by_tag(); 
+	if (temp_tag == "sadies_sob_story") {
+		display_scene_info_by_index_and_tag(1, 7);
+	} else if (temp_tag = "fullers_electrical_repair") {
+		display_scene_info_by_index_and_tag(1, 2);
+	}
 }
 
 function display_scene_sadies_sob_story() {
