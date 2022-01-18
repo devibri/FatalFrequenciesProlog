@@ -44,20 +44,6 @@ function get_callback(funcWhenDone)
 	}
 	return callbackFunc;
 } 
-/*
-// Takes a list of all of the scene names in the game and outputs them
-function display_scene_list() {
-	var get_all_bindings = function(answers) {
-		console.log(answers);
-		for (var i = 0; i < answers.length; i++) {
-    		var name = answers[i];
-    		print_scene_names(name);
-		}
-	}
-	
-	session.query("scene_name(Number, Scene, Name).");
-	session.answers(get_callback(get_all_bindings));
-}*/
 
 // Displays the name of the current scene
 function display_scene_name() {
@@ -215,11 +201,8 @@ function display_all_clues() {
 	//for (var i = 0; i < 2; i++) { //change this depending on the number of scenes in the game 
 		var get_all_bindings = function(answers) {
 		answers.sort();
-		console.log(answers);
 		for (var i = 0; i < answers.length; i++) {
     		var name = answers[i];
-   			//print_scene_names(name);
-   			//display_scene_info_by_index(1, 4, name);
    			display_scene_clues(name);
 		}
 	}
